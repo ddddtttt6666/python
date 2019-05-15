@@ -70,7 +70,7 @@ class Player():
 		buf = engine.Buffer();
 		
 		for i in range(screenWidth):
-			buf.line(i, int(screenHeight/2-(screenHeight/3*(1/Dists[i]))), i, int(screenHeight/2+(screenHeight/3*(1/Dists[i]))), brightChars(1/(Dists[i])));
+			buf.line(i, int(screenHeight/2-(screenHeight/3*(1/Dists[i]))), i, int(screenHeight/2+(screenHeight/3*(1/Dists[i]))), buf.brightness(1/(Dists[i])));
 		printMiniMap(Map, buf, [self.posx, self.posy], self.dir)
 		buf.render();
 		return True

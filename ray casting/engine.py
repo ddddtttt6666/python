@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import random
 
 os.system('cls');
 
@@ -13,12 +14,26 @@ class Buffer():
 		self.H = os.get_terminal_size()[1]
 		self.bufer = [[' ' for i in range(self.W)] for j in range(self.H)]
 
+	def brightness(self, val):
+		vals = [9617, 9618, 9619, 9608]
+		return chr(vals[int((val-0.001)*len(vals))]);
+
+	def randx(self):
+		return random.randint(0, self.W-1)
+
+	def randy(self):
+		return random.randint(0, self.H-1)
+
 	def background(self, val):
 		for i in range(self.H):
 			for j in range(self.W):
 				self.bufer[i][j] = val
 
 	def line(self, x0,y0, x1,y1, val):
+		x0 = int(x0)
+		y0 = int(y0)
+		x1 = int(x1)
+		y1 = int(y1)
 		if abs(y1 - y0) < abs(x1 - x0):
 			if x0 > x1:
 				self.plotLineLow(x1, y1, x0, y0, val)
@@ -63,8 +78,9 @@ class Buffer():
 			D = D + 2*dy
 
 	def set(self, x, y, val):
-
-		self.bufer[y][x] = val
+		x = int(x)
+		y = int(y)
+		self.bufer[min(max(y, 0), self.H-1)][min(max(x, 0), self.W-1)] = val
 
 	def render(self):
 		toPrint = ''
